@@ -6,16 +6,11 @@
       ******************************************************************
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       01 WS-I-IDX        PIC 999.
-       01 WS-K-IDX        PIC 999.
-      * There is the function CBL_GET_SCR_SIZE to get the dimensions of
-      * the terminal, but it makes the terminal misbehave for some 
-      * reason.
+       01 WS-I-IDX PIC 999.
+       01 WS-K-IDX PIC 999.
        01 WS-TERMINAL.
-          05 WS-T-WIDTH  PIC 999 VALUE 80.
-      *   Needs to be 1 less than the actual terminal height to account
-      *   for the input line.
-          05 WS-T-HEIGHT PIC 999 VALUE 23.
+          05 WS-T-HEIGHT PIC 999.
+          05 WS-T-WIDTH  PIC 999.
        01 WS-FILLER-CHARACTER PIC X VALUE " ".
        01 WS-LOGO-IMAGE.
           78 WS-LI-LENGTH VALUE 8.
@@ -29,6 +24,11 @@
       ******************************************************************
        PROCEDURE DIVISION.
        000-MAIN.
+         CALL "TERMINAL-SIZE" USING WS-TERMINAL.
+      *  Needs to be 1 less than the actual terminal height to account
+      *  for the input line.
+         SUBTRACT 1 FROM WS-T-HEIGHT.
+
          PERFORM 001-LOAD-LOGO.
          PERFORM FOREVER
             PERFORM 001-UPDATE-TERMINAL
