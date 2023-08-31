@@ -2,7 +2,13 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. DVD-THING. 
       ******************************************************************
-      * TODO add desciption of program.
+      * A terminal program that runs a screensaver similar to the ones
+      * you see on DVD players.
+      * UNIX only.
+      *
+      * Note: this has to temporarily create and destory a file called 
+      * "TPUT-OUTPUT.TXT" in the current working directory to read the
+      * output from tput.
       ******************************************************************
        DATA DIVISION.
        WORKING-STORAGE SECTION.
