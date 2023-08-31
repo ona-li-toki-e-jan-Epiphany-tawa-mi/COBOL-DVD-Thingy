@@ -1,18 +1,11 @@
        >>SOURCE FORMAT IS FIXED
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. dvd_thing. 
+       PROGRAM-ID. DVD-THING. 
       ******************************************************************
       * TODO add desciption of program.
       ******************************************************************
-       ENVIRONMENT DIVISION.
-       INPUT-OUTPUT SECTION.
-       FILE-CONTROL.
-       SELECT F-LOGO-FILE ASSIGN TO "LOGO.TXT"
-         ORGANIZATION IS LINE SEQUENTIAL.
-      ******************************************************************
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       01 WS-EOF          PIC X.
        01 WS-I-IDX        PIC 999.
        01 WS-K-IDX        PIC 999.
       * There is the function CBL_GET_SCR_SIZE to get the dimensions of
@@ -20,8 +13,10 @@
       * reason.
        01 WS-TERMINAL.
           05 WS-T-WIDTH  PIC 999 VALUE 80.
+      *   Needs to be 1 less than the actual terminal height to account
+      *   for the input line.
           05 WS-T-HEIGHT PIC 999 VALUE 23.
-       01 WS-FILLER-CHARACTER PIC X VALUE ".".
+       01 WS-FILLER-CHARACTER PIC X VALUE " ".
        01 WS-LOGO-IMAGE.
           78 WS-LI-LENGTH VALUE 8.
           78 WS-LI-WIDTH  VALUE 31.
@@ -34,35 +29,31 @@
       ******************************************************************
        PROCEDURE DIVISION.
        000-MAIN.
-         PERFORM 001-LOAD-LOGO-FROM-FILE.
+         PERFORM 001-LOAD-LOGO.
          PERFORM FOREVER
             PERFORM 001-UPDATE-TERMINAL
             PERFORM 001-MOVE-LOGO
             CALL "CBL_GC_NANOSLEEP" USING 500000000
          END-PERFORM.
 
-       001-LOAD-LOGO-FROM-FILE.
-         OPEN INPUT F-LOGO-FILE.
-         MOVE 1 TO WS-I-IDX.
-         PERFORM UNTIL (WS-EOF = "Y") OR (WS-I-IDX > WS-LI-LENGTH)
-            READ F-LOGO-FILE INTO WS-LI-LINE(WS-I-IDX)
-            AT END 
-               MOVE 'Y' TO WS-EOF
-            NOT AT END
-               ADD 1 TO WS-I-IDX
-         END-PERFORM.
-         CLOSE F-LOGO-FILE.
+       001-LOAD-LOGO.
+         MOVE "  /==========\   /============\" TO WS-LI-LINE(1).
+         MOVE " /==/  /======\ /==/===/  /===|" TO WS-LI-LINE(2).
+         MOVE " |==/ /====/\==v==//==/  /===/ " TO WS-LI-LINE(3).
+         MOVE " /========/  \==/  /========/  " TO WS-LI-LINE(4).
+         MOVE "          ___\=/___            " TO WS-LI-LINE(5).
+         MOVE "/-----===================---\  " TO WS-LI-LINE(6).
+         MOVE "======V===I====D====E===O====  " TO WS-LI-LINE(7).
+         MOVE "\-----===================---/  " TO WS-LI-LINE(8).
 
        001-MOVE-LOGO.
          ADD WS-L-DELTA-X TO WS-L-X.
-         IF (WS-L-X <= 0) OR (WS-L-X >= WS-T-WIDTH - WS-LI-WIDTH) 
-         THEN
+         IF (WS-L-X <= 0) OR (WS-L-X >= WS-T-WIDTH - WS-LI-WIDTH)
             MULTIPLY -1 BY WS-L-DELTA-X
          END-IF.
 
          ADD WS-L-DELTA-Y TO WS-L-Y.
          IF (WS-L-Y <= 0) OR (WS-L-Y >= WS-T-HEIGHT - WS-LI-LENGTH)
-         THEN
             MULTIPLY -1 BY WS-L-DELTA-Y
          END-IF.
 
@@ -76,15 +67,17 @@
             THEN
                PERFORM 005-PRINT-LOGO-LINE
             ELSE
+      *        Prints the lines without the logo.
                PERFORM VARYING WS-K-IDX FROM 1 BY 1 
                        UNTIL WS-K-IDX >= WS-T-WIDTH
                   DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING
                END-PERFORM
-               DISPLAY "."
+               DISPLAY WS-FILLER-CHARACTER
             END-IF
          END-PERFORM.
 
        005-PRINT-LOGO-LINE.
+      *  Prints filler up to logo.
          PERFORM VARYING WS-K-IDX FROM 1 BY 1 UNTIL WS-K-IDX > WS-L-X
             DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING
          END-PERFORM.
@@ -93,6 +86,7 @@
          IF WS-L-X + WS-LI-WIDTH < WS-T-WIDTH
             DISPLAY WS-LI-LINE(WS-K-IDX) WITH NO ADVANCING
 
+      *     Prints filler after logo.
             ADD WS-L-X, WS-LI-WIDTH, 1 GIVING WS-K-IDX
             PERFORM UNTIL WS-K-IDX >= WS-T-WIDTH
                DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING
