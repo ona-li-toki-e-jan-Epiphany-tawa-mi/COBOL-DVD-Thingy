@@ -33,7 +33,7 @@ If you would like to run this program as command in the terminal, like as "cobol
 Then, run the following commands on the executable:
 
 ```
-sudo cp cobol-dvd-thing.out /usr/local/bin/cobol-dvd-thing
+sudo cp <executable name> /usr/local/bin/cobol-dvd-thing
 sudo chown root:root /usr/local/bin/cobol-dvd-thing
 sudo chmod u=w,a+rx /usr/local/bin/cobol-dvd-thing
 ```
