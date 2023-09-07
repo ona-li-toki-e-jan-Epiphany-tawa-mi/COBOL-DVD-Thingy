@@ -1,3 +1,5 @@
+![screenshot](screenshots/screensaver.png)
+
 # COBOL DVD Thing
 
 This program is a terminal screensaver that displays a moving DVD logo similar to the ones you might see in a DVD player.
