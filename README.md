@@ -2,15 +2,18 @@
 
 # COBOL DVD Thing
 
-This program is a terminal screensaver that displays a moving DVD logo similar to the ones you might see in a DVD player.
+This program is a terminal screensaver for Linux and similar systems that
+displays a moving DVD logo similar to the ones you might see in a DVD player.
 
-Why?, and why COBOL? I wanted to learn COBOL, because why not, and I had the idea to make this with it.
+Why COBOL? I wanted to learn COBOL, because why not, and I had the idea to make
+this with it.
 
 ## How to build
 
 *Avalible on POSIX systems only.*
 
-You will first need to install [cobc, the GnuCOBOL compiler,](https://gnucobol.sourceforge.io "GnuCOBOL SourceForge Main Page") installed on your system. 
+You will need the GnuCOBOL compiler. There is a `shell.nix` you can use with
+`nix-shell` to get them.
 
 Then, run the following command in the project directory:
 
@@ -39,4 +42,3 @@ sudo cp <executable name> /usr/local/bin/cobol-dvd-thing
 sudo chown root:root /usr/local/bin/cobol-dvd-thing
 sudo chmod u=w,a+rx /usr/local/bin/cobol-dvd-thing
 ```
-
