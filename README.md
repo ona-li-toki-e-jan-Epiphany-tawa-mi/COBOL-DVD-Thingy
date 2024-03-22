@@ -1,6 +1,6 @@
 ![screenshot](screenshots/screensaver.png)
 
-# COBOL DVD Thing
+# COBOL DVD Thingy
 
 This program is a terminal screensaver for Linux and similar systems that
 displays a moving DVD logo similar to the ones you might see in a DVD player.
@@ -10,10 +10,8 @@ this with it.
 
 ## How to build
 
-*Avalible on POSIX systems only.*
-
-You will need the GnuCOBOL compiler. There is a `shell.nix` you can use with
-`nix-shell` to get them.
+You will need the GnuCOBOL compiler and make. There is a `shell.nix` you can use
+with `nix-shell` to get them.
 
 Then, run the following command in the project directory:
 
@@ -31,14 +29,10 @@ make clean
 
 ## Installation
 
-*Avalible on POSIX systems only.*
+In addition to compiling it yourself, you can also install it with Nix from the
+[(CLEARNET) NUR](https://github.com/nix-community/NUR) with the following
+attribute:
 
-If you would like to run this program as command in the terminal, like as "cobol-dvd-thing", you will first either need to build it yourself from source, or download it from the [RELEASES](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/COBOL-DVD-Thingy/releases "COBOL-DVD-Thingy RELEASES Tab on GitHub") tab (only precompiled for Linux.)
-
-Then, run the following commands on the executable:
-
-```
-sudo cp <executable name> /usr/local/bin/cobol-dvd-thing
-sudo chown root:root /usr/local/bin/cobol-dvd-thing
-sudo chmod u=w,a+rx /usr/local/bin/cobol-dvd-thing
+```nix
+nur.repos.ona-li-toki-e-jan-Epiphany-tawa-mi.cobol-dvd-thingy
 ```
