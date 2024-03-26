@@ -30,8 +30,7 @@ make clean
 ## Installation
 
 In addition to compiling it yourself, you can also install it with Nix from the
-[(CLEARNET) NUR](https://github.com/nix-community/NUR) with the following
-attribute:
+NUR (https://github.com/nix-community/NUR) with the following attribute:
 
 ```nix
 nur.repos.ona-li-toki-e-jan-Epiphany-tawa-mi.cobol-dvd-thingy
