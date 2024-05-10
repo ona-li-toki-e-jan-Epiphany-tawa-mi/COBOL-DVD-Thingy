@@ -1,31 +1,31 @@
        >>SOURCE FORMAT IS FIXED
        IDENTIFICATION DIVISION.
        PROGRAM-ID. DVD-THING.
-EP0923******************************************************************
-EP0923* MIT License
-EP0923*
-EP0923* Copyright (c) 2023 ona-li-toki-e-jan-Epiphany-tawa-mi
-EP0923*
-EP0923* Permission is hereby granted, free of charge, to any person
-EP0923* obtaining a copy of this software and associated documentation
-EP0923* files (the "Software"), to deal in the Software without
-EP0923* restriction, including without limitation the rights to use,
-EP0923* copy, modify, merge, publish, distribute, sublicense, and/or
-EP0923* sell copies of the Software, and to permit persons to whom the
-EP0923* Software is furnished to do so, subject to the following
-EP0923* conditions:
-EP0923*
-EP0923* The above copyright notice and this permission notice shall be
-EP0923* included in all copies or substantial portions of the Software.
-EP0923*
-EP0923* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EP0923* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-EP0923* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-EP0923* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-EP0923* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-EP0923* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-EP0923* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-EP0923* OTHER DEALINGS IN THE SOFTWARE.
+      ******************************************************************
+      * MIT License
+      *
+      * Copyright (c) 2023-2024 ona-li-toki-e-jan-Epiphany-tawa-mi
+      *
+      * Permission is hereby granted, free of charge, to any person
+      * obtaining a copy of this software and associated documentation
+      * files (the "Software"), to deal in the Software without
+      * restriction, including without limitation the rights to use,
+      * copy, modify, merge, publish, distribute, sublicense, and/or
+      * sell copies of the Software, and to permit persons to whom the
+      * Software is furnished to do so, subject to the following
+      * conditions:
+      *
+      * The above copyright notice and this permission notice shall be
+      * included in all copies or substantial portions of the Software.
+      *
+      * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+      * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+      * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+      * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+      * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+      * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+      * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+      * OTHER DEALINGS IN THE SOFTWARE.
       ******************************************************************
       * A terminal program that runs a screensaver similar to the ones
       * you see on DVD players.
@@ -35,8 +35,8 @@ EP0923* OTHER DEALINGS IN THE SOFTWARE.
        01 WS-I-IDX PIC 999.
        01 WS-K-IDX PIC 999.
        01 WS-TERMINAL.
-          05 WS-T-HEIGHT PIC 999.
-EP0923    05 WS-T-WIDTH  PIC 9999.
+          05 WS-T-HEIGHT PIC 9999.
+          05 WS-T-WIDTH  PIC 9999.
        01 WS-FILLER-CHARACTER PIC X VALUE " ".
        01 WS-LOGO-IMAGE.
           78 WS-LI-LENGTH VALUE 8.
@@ -50,16 +50,16 @@ EP0923    05 WS-T-WIDTH  PIC 9999.
       ******************************************************************
        PROCEDURE DIVISION.
        000-MAIN.
-EP0923    CALL "TERMINAL-SIZE" USING WS-T-HEIGHT, WS-T-WIDTH.
+          CALL "TERMINAL-SIZE" USING WS-TERMINAL END-CALL.
       *   Needs to be 1 less than the actual terminal height to account
       *   for the input line.
-          SUBTRACT 1 FROM WS-T-HEIGHT.
+          SUBTRACT 1 FROM WS-T-HEIGHT END-SUBTRACT.
 
           PERFORM 001-LOAD-LOGO.
-             PERFORM FOREVER
+          PERFORM FOREVER
              PERFORM 001-UPDATE-TERMINAL
              PERFORM 001-MOVE-LOGO
-             CALL "CBL_GC_NANOSLEEP" USING 500000000
+             CALL "CBL_GC_NANOSLEEP" USING 500000000 END-CALL
           END-PERFORM.
 
        001-LOAD-LOGO.
@@ -73,18 +73,18 @@ EP0923    CALL "TERMINAL-SIZE" USING WS-T-HEIGHT, WS-T-WIDTH.
           MOVE "\-----===================---/  " TO WS-LI-LINE(8).
 
        001-MOVE-LOGO.
-          ADD WS-L-DELTA-X TO WS-L-X.
+          ADD WS-L-DELTA-X TO WS-L-X END-ADD.
           IF (WS-L-X <= 0) OR (WS-L-X >= WS-T-WIDTH - WS-LI-WIDTH)
-             MULTIPLY -1 BY WS-L-DELTA-X
+             MULTIPLY -1 BY WS-L-DELTA-X END-MULTIPLY
           END-IF.
 
-          ADD WS-L-DELTA-Y TO WS-L-Y.
+          ADD WS-L-DELTA-Y TO WS-L-Y END-ADD.
           IF (WS-L-Y <= 0) OR (WS-L-Y >= WS-T-HEIGHT - WS-LI-LENGTH)
-             MULTIPLY -1 BY WS-L-DELTA-Y
+             MULTIPLY -1 BY WS-L-DELTA-Y END-MULTIPLY
           END-IF.
 
        001-UPDATE-TERMINAL.
-EP0923    CALL "CLEAR-TERMINAL".
+          CALL "CLEAR-TERMINAL" END-CALL.
 
           PERFORM VARYING WS-I-IDX FROM 1 BY 1
                   UNTIL WS-I-IDX > WS-T-HEIGHT
@@ -97,28 +97,30 @@ EP0923    CALL "CLEAR-TERMINAL".
                 PERFORM VARYING WS-K-IDX FROM 1 BY 1
                         UNTIL WS-K-IDX >= WS-T-WIDTH
                    DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING
+                   END-DISPLAY
                 END-PERFORM
-                DISPLAY WS-FILLER-CHARACTER
+                DISPLAY WS-FILLER-CHARACTER END-DISPLAY
              END-IF
           END-PERFORM.
 
        005-PRINT-LOGO-LINE.
       *   Prints filler up to logo.
           PERFORM VARYING WS-K-IDX FROM 1 BY 1 UNTIL WS-K-IDX > WS-L-X
-             DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING
+             DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING END-DISPLAY
           END-PERFORM.
 
-          SUBTRACT WS-L-Y FROM WS-I-IDX GIVING WS-K-IDX.
+          SUBTRACT WS-L-Y FROM WS-I-IDX GIVING WS-K-IDX END-SUBTRACT.
           IF WS-L-X + WS-LI-WIDTH < WS-T-WIDTH
-             DISPLAY WS-LI-LINE(WS-K-IDX) WITH NO ADVANCING
+             DISPLAY WS-LI-LINE(WS-K-IDX) WITH NO ADVANCING END-DISPLAY
 
       *      Prints filler after logo.
-             ADD WS-L-X, WS-LI-WIDTH, 1 GIVING WS-K-IDX
+             ADD WS-L-X, WS-LI-WIDTH, 1 GIVING WS-K-IDX END-ADD
              PERFORM UNTIL WS-K-IDX >= WS-T-WIDTH
                 DISPLAY WS-FILLER-CHARACTER WITH NO ADVANCING
-                ADD 1 TO WS-K-IDX
+                END-DISPLAY
+                ADD 1 TO WS-K-IDX END-ADD
              END-PERFORM
-             DISPLAY WS-FILLER-CHARACTER
+             DISPLAY WS-FILLER-CHARACTER END-DISPLAY
           ELSE
-             DISPLAY WS-LI-LINE(WS-K-IDX)
+             DISPLAY WS-LI-LINE(WS-K-IDX) END-DISPLAY
           END-IF.

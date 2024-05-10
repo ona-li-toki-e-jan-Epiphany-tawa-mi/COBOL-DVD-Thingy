@@ -4,7 +4,7 @@
       ******************************************************************
       * MIT License
       *
-      * Copyright (c) 2023 ona-li-toki-e-jan-Epiphany-tawa-mi
+      * Copyright (c) 2023-2024 ona-li-toki-e-jan-Epiphany-tawa-mi
       *
       * Permission is hereby granted, free of charge, to any person
       * obtaining a copy of this software and associated documentation
@@ -30,8 +30,8 @@
       * Clears the terminal. POSIX only.
       *
       * Call convention:
-      * CALL "CLEAR-TERMINAL".
+      * CALL "CLEAR-TERMINAL" END-CALL.
       ******************************************************************
        PROCEDURE DIVISION.
-          CALL "SYSTEM" USING "clear".
+          CALL "SYSTEM" USING "clear" END-CALL.
           EXIT PROGRAM.
