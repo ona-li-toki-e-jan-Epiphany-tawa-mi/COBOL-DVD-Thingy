@@ -15,15 +15,15 @@ with `nix-shell` to get them.
 
 Then, run the following command in the project directory:
 
-```console
+```
 make
 ```
 
-The executable will be named `cobol-dvd-thing.out`.
+The executable will be named `cobol-dvd-thingy`.
 
 To remove the build files, run the following command in the project directory:
 
-```console
+```
 make clean
 ```
 

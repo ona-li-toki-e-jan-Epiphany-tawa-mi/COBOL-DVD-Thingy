@@ -1,2 +1,4 @@
-*.out
+cobol-dvd-thingy
 *.o
+
+result
