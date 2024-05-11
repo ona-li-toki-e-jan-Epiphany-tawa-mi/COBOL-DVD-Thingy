@@ -21,12 +21,6 @@ make
 
 The executable will be named `cobol-dvd-thingy`.
 
-To remove the build files, run the following command in the project directory:
-
-```
-make clean
-```
-
 ## Installation
 
 In addition to compiling it yourself, you can also install it with Nix from the
