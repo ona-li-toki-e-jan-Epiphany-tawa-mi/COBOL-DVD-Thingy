@@ -20,13 +20,34 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-# We use nixpkgs-unstable since the NUR does as well.
-{ nixpkgs ? builtins.fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-unstable" }:
+{
+  description = "COBOL-DVD-Thingy development environment";
 
-let pkgs = import nixpkgs {};
-in pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    gnu-cobol.bin
-    gmp
-  ];
-}
+  # We use nixpkgs-unstable since the NUR does as well.
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+  outputs = { self, nixpkgs }:
+    let
+      lib = nixpkgs.lib;
+
+      systems = [
+        "x86_64-linux"  "aarch64-linux"
+        "x86_64-darwin" "aarch64-darwin"
+      ];
+
+      forSystems = f: lib.genAttrs systems (system: f {
+        pkgs = import nixpkgs { inherit system; };
+      });
+
+    in
+      {
+        devShells = forSystems ({ pkgs }: {
+          default = with pkgs; mkShell {
+            nativeBuildInputs = [
+              gnu-cobol.bin
+              gmp
+            ];
+          };
+        });
+      };
+  }

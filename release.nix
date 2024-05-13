@@ -23,36 +23,37 @@
 # release.nix for telling Hydra CI how to build the project.
 #
 # You can use the following command to build this/these derivation(s):
-#   nix build -f release.nix
-# But you should probably use nix-shell + make instead.
+#   nix-build release.nix -A <attribute>
+# But you should use nix-shell + make instead.
 
 # We use nixpkgs-unstable since the NUR does as well.
 { nixpkgs ? builtins.fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-unstable"
-, system  ? builtins.currentSystem
+, systems ? [ "i686-linux" "x86_64-linux" "aarch64-linux" ]
 }:
 
-let pkgs = import nixpkgs {};
-    src  = builtins.fetchGit ./.;
+let lib = (import nixpkgs {}).lib;
+
+    buildFor = system:
+      let pkgs = import nixpkgs { inherit system; };
+      in pkgs.releaseTools.nixBuild rec {
+        localSystem = builtins.currentSystem;
+        crossSystem = system;
+        name        = "cobol-dvd-thingy";
+
+        src = ./.;
+
+        nativeBuildInputs = with pkgs; [ gnu-cobol.bin gmp ];
+
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out/bin
+          cp ${name} $out/bin
+
+          runHook postInstall
+        '';
+      };
 in
 {
-  build =
-    let pkgs = import nixpkgs { inherit system; };
-    in pkgs.releaseTools.nixBuild rec {
-      name = "cobol-dvd-thingy";
-
-      inherit src;
-
-      # We have to use gnu-cobol.bin because gnu-cobol doesn't properly output
-      # it's binary, I think.
-      nativeBuildInputs = with pkgs; [ gnu-cobol.bin gmp ];
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p $out
-        cp ${name} $out
-
-        runHook postInstall
-       '';
-    };
+  build = lib.genAttrs systems buildFor;
 }

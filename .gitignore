@@ -1,4 +1,5 @@
 cobol-dvd-thingy
 *.o
 
-result
+result*
+flake.lock

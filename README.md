@@ -10,8 +10,8 @@ this with it.
 
 ## How to build
 
-You will need the GnuCOBOL compiler and make. There is a `shell.nix` you can use
-with `nix-shell` to get them.
+You will need the GnuCOBOL compiler and make. There is a `flake.nix` you can use
+with `nix develop` to get them.
 
 Then, run the following command in the project directory:
 
