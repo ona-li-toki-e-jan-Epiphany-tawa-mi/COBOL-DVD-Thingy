@@ -30,12 +30,7 @@
     let
       lib = nixpkgs.lib;
 
-      systems = [
-        "x86_64-linux"  "aarch64-linux"
-        "x86_64-darwin" "aarch64-darwin"
-      ];
-
-      forSystems = f: lib.genAttrs systems (system: f {
+      forSystems = f: lib.genAttrs lib.systems.flakeExposed (system: f {
         pkgs = import nixpkgs { inherit system; };
       });
 

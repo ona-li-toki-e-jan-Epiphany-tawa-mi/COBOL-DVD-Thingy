@@ -20,23 +20,46 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-COBC_ARGUMENTS   := -O3 -Wall -Wextra -Werror
-SOURCE_DIRECTORY := src
-OUTPUT_FILE      := cobol-dvd-thingy
-MAIN_PROGRAM     := $(SOURCE_DIRECTORY)/DVD-THING.CBL
-SUBPROGRAMS      := $(SOURCE_DIRECTORY)/PLATFORM/TERMINAL-SIZE.POSIX.CBL $(SOURCE_DIRECTORY)/PLATFORM/CLEAR-TERMINAL.POSIX.CBL
 
-vpath %.CBL $(dir $(MAIN_PROGRAM) $(SUBPROGRAMS))
-MAIN_PROGRAM_OBJECT_FILE := $(notdir $(MAIN_PROGRAM:.CBL=.o))
-SUBPROGRAM_OBJECT_FILES  := $(notdir $(SUBPROGRAMS:.CBL=.o))
 
-${OUTPUT_FILE}: $(MAIN_PROGRAM_OBJECT_FILE) $(SUBPROGRAM_OBJECT_FILES)
-	cobc $(COBC_ARGUMENTS) -x -o $@ $^
-$(MAIN_PROGRAM_OBJECT_FILE): %.o: %.CBL
-	cobc $(COBC_ARGUMENTS) -cx -o $@ $<
-$(SUBPROGRAM_OBJECT_FILES): %.o: %.CBL
-	cobc $(COBC_ARGUMENTS) -cm -o $@ $<
+COBC     := cobc
+COBFLAGS ?= -O3 -Wall -Wextra -Werror
+srcdir   := src
+
+MAIN_PROGRAM_SOURCE := $(srcdir)/DVD-THING.CBL
+SUBPROGRAM_SOURCES  := $(addprefix $(srcdir)/,PLATFORM/TERMINAL-SIZE.POSIX.CBL PLATFORM/CLEAR-TERMINAL.POSIX.CBL)
+vpath %.CBL $(dir $(MAIN_PROGRAM_SOURCE) $(SUBPROGRAM_SOURCES))
+MAIN_PROGRAM_OBJECT := $(notdir $(MAIN_PROGRAM_SOURCE:.CBL=.o))
+SUBPROGRAM_OBJECTS  := $(notdir $(SUBPROGRAM_SOURCES:.CBL=.o))
+
+OUT ?= cobol-dvd-thingy
+
+$(OUT): $(MAIN_PROGRAM_OBJECT) $(SUBPROGRAM_OBJECTS)
+	$(COBC) $(COBFLAGS) -x -o $@ $^
+$(MAIN_PROGRAM_OBJECT): %.o: %.CBL
+	$(COBC) $(COBFLAGS) -cx -o $@ $<
+$(SUBPROGRAM_OBJECTS): %.o: %.CBL
+	$(COBC) $(COBFLAGS) -cm -o $@ $<
+
+
 
 .PHONY: clean
 clean:
-	rm ${OUTPUT_FILE} *.o
+	rm $(OUT) *.o
+
+
+
+prefix      ?= /usr/local
+exec_prefix ?= $(prefix)
+bindir      ?= $(exec_prefix)/bin
+
+INSTALL         ?= install
+INSTALL_PROGRAM ?= $(INSTALL) -m 755
+
+.PHONY: install
+install: $(OUT)
+	$(INSTALL_PROGRAM) -D $< $(DESTDIR)$(bindir)/$<
+
+.PHONY: uninstall
+uninstall:
+	rm $(DESTDIR)$(bindir)/$(OUT)
