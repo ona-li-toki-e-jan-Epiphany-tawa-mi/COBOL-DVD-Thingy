@@ -28,7 +28,7 @@
 
 # We use nixpkgs-unstable since the NUR does as well.
 { nixpkgs ? builtins.fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-unstable"
-, systems ? [ "i686-linux" "x86_64-linux" "aarch64-linux" ]
+, systems ? [ "x86_64-linux" "aarch64-linux" ]
 }:
 
 let lib = (import nixpkgs {}).lib;
