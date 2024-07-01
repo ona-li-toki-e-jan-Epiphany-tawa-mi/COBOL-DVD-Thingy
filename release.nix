@@ -24,7 +24,6 @@
 #
 # You can use the following command to build this/these derivation(s):
 #   nix-build release.nix -A <attribute>
-# But you should use nix-shell + make instead.
 
 # We use nixpkgs-unstable since the NUR does as well.
 { nixpkgs ? builtins.fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-unstable"
