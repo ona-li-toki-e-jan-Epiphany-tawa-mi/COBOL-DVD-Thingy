@@ -31,20 +31,26 @@
 , systems ? [ "x86_64-linux" "aarch64-linux" ]
 }:
 
-let lib = (import nixpkgs {}).lib;
+let pkgs = (import nixpkgs {});
+    lib  = pkgs.lib;
 
-    buildFor = system:
-      let pkgs = import nixpkgs { inherit system; };
-      in pkgs.releaseTools.nixBuild rec {
-        localSystem = builtins.currentSystem;
-        crossSystem = system;
-        name        = "cobol-dvd-thingy";
+    name = "cobol-dvd-thingy";
+    src  = ./.;
+in
+{
+  # Builds the project for supported platforms.
+  build = lib.genAttrs systems (system:
+    let pkgs = import nixpkgs { inherit system; };
+    in pkgs.stdenv.mkDerivation {
+      localSystem = builtins.currentSystem;
+      crossSystem = system;
+      inherit name;
 
-        src = ./.;
+      inherit src;
 
-        nativeBuildInputs = with pkgs; [ gnu-cobol.bin gmp ];
+      nativeBuildInputs = with pkgs; [ gnu-cobol.bin gmp ];
 
-        installPhase = ''
+      installPhase = ''
           runHook preInstall
 
           mkdir -p $out/bin
@@ -52,8 +58,34 @@ let lib = (import nixpkgs {}).lib;
 
           runHook postInstall
         '';
-      };
-in
-{
-  build = lib.genAttrs systems buildFor;
+    });
+
+  # Makes tarballs of the source code.
+  sourceTarball = pkgs.stdenv.mkDerivation {
+    # No need to actually build the project.
+    dontBuild   = true;
+    dontInstall = true;
+
+    inherit name;
+
+    inherit src;
+
+    doDist    = true;
+    distPhase = ''
+      runHook preDist
+
+      mkdir -p $out/tarballs
+      find -type f \! -path './.git' \! -path './.git/*' | sed 's|^\./||' | tar -T - -cavf $out/tarballs/${name}-source-dist.tar.xz
+
+      runHook postDist
+    '';
+
+    postPhases = "finalPhase";
+    finalPhase = ''
+      mkdir -p $out/nix-support
+      for i in $out/tarballs/*; do
+          echo "file source-dist $i" >> $out/nix-support/hydra-build-products
+      done
+    '';
+  };
 }
