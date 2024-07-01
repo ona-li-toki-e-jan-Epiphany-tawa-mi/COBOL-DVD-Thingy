@@ -50,6 +50,14 @@ in
 
       nativeBuildInputs = with pkgs; [ gnu-cobol.bin gmp ];
 
+      buildPhase = ''
+        runHook preBuild
+
+        ./build.sh
+
+        runHook postBuild
+      '';
+
       installPhase = ''
           runHook preInstall
 

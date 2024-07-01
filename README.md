@@ -10,27 +10,25 @@ this with it.
 
 ## How to build
 
-You will need the GnuCOBOL (https://gnucobol.sourceforge.io) compiler and make.
-There is a `flake.nix` you can use with `nix develop path:.` to get them.
+Dependencies:
+
+- GnuCOBOL - https://gnucobol.sourceforge.io
+
+There is a `flake.nix` you can use with `nix develop path:.` to generate a
+devlopment environment
 
 Then, run the following command in the project directory:
 
 ```
-make
+./build.sh
 ```
 
 The executable will be named `cobol-dvd-thingy`.
 
 ## Installation
 
-If you would like to install it, you do so with the following make command:
-
-```
-make install
-```
-
-You can also install it with Nix from the NUR
-(https://github.com/nix-community/NUR) with the following attribute:
+You can install it with Nix from the NUR (https://github.com/nix-community/NUR)
+with the following attribute:
 
 ```nix
 nur.repos.ona-li-toki-e-jan-Epiphany-tawa-mi.cobol-dvd-thingy
