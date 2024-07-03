@@ -27,6 +27,7 @@
 
 # We use nixpkgs-unstable since the NUR does as well.
 { nixpkgs ? builtins.fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-unstable"
+, src     ? ./.
 , systems ? [ "x86_64-linux" "aarch64-linux" ]
 }:
 
@@ -34,7 +35,6 @@ let pkgs = (import nixpkgs {});
     lib  = pkgs.lib;
 
     name = "cobol-dvd-thingy";
-    src  = ./.;
 in
 {
   # Builds the project for supported platforms.
