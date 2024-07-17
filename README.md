@@ -2,8 +2,8 @@
 
 View build status:
 
-- I2P: http://oytjumugnwsf4g72vemtamo72vfvgmp4lfsf6wmggcvba3qmcsta.b32.i2p/hydra/jobset/cobol-dvd-thingy/master/latest-eval
-- Tor: http://4blcq4arxhbkc77tfrtmy4pptf55gjbhlj32rbfyskl672v2plsmjcyd.onion/hydra/jobset/cobol-dvd-thingy/master/latest-eval
+- I2P: [http://oytjumugnwsf4g72vemtamo72vfvgmp4lfsf6wmggcvba3qmcsta.b32.i2p/hydra/jobset/cobol-dvd-thingy/master/latest-eval](http://oytjumugnwsf4g72vemtamo72vfvgmp4lfsf6wmggcvba3qmcsta.b32.i2p/hydra/jobset/cobol-dvd-thingy/master/latest-eval)
+- Tor: [http://4blcq4arxhbkc77tfrtmy4pptf55gjbhlj32rbfyskl672v2plsmjcyd.onion/hydra/jobset/cobol-dvd-thingy/master/latest-eval](http://4blcq4arxhbkc77tfrtmy4pptf55gjbhlj32rbfyskl672v2plsmjcyd.onion/hydra/jobset/cobol-dvd-thingy/master/latest-eval)
 
 # COBOL DVD Thingy
 
@@ -17,7 +17,7 @@ this with it.
 
 Dependencies:
 
-- GnuCOBOL - https://gnucobol.sourceforge.io
+- GnuCOBOL - [https://gnucobol.sourceforge.io](https://gnucobol.sourceforge.io)
 
 There is a `flake.nix` you can use with `nix develop path:.` to generate a
 devlopment environment
@@ -32,7 +32,8 @@ The executable will be named `cobol-dvd-thingy`.
 
 ## Installation
 
-You can install it with Nix from the NUR (https://github.com/nix-community/NUR)
+You can install it with Nix from the NUR
+([https://github.com/nix-community/NUR](https://github.com/nix-community/NUR))
 with the following attribute:
 
 ```nix
