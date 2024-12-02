@@ -23,26 +23,22 @@
 {
   description = "COBOL-DVD-Thingy development environment";
 
-  # We use nixpkgs-unstable since the NUR does as well.
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
-    let
-      lib = nixpkgs.lib;
+    let inherit (nixpkgs.lib) genAttrs systems;
 
-      forSystems = f: lib.genAttrs lib.systems.flakeExposed (system: f {
-        pkgs = import nixpkgs { inherit system; };
-      });
-
-    in
-      {
-        devShells = forSystems ({ pkgs }: {
-          default = with pkgs; mkShell {
-            nativeBuildInputs = [
-              gnu-cobol.bin
-              gmp
-            ];
-          };
+        forSystems = f: genAttrs systems.flakeExposed (system: f {
+          pkgs = import nixpkgs { inherit system; };
         });
-      };
-  }
+    in {
+      devShells = forSystems ({ pkgs }: {
+        default = with pkgs; mkShell {
+          nativeBuildInputs = [
+            gnu-cobol.bin
+            gmp
+          ];
+        };
+      });
+    };
+}
