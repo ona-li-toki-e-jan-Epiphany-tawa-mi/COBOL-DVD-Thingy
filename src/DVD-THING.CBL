@@ -27,8 +27,8 @@
        01 WS-I-IDX PIC 999.
        01 WS-K-IDX PIC 999.
        01 WS-TERMINAL.
-          05 WS-T-HEIGHT PIC 9999.
           05 WS-T-WIDTH  PIC 9999.
+          05 WS-T-HEIGHT PIC 9999.
        01 WS-FILLER-CHARACTER PIC X VALUE " ".
        01 WS-LOGO-IMAGE.
           78 WS-LI-LENGTH VALUE 8.
@@ -42,7 +42,7 @@
       ******************************************************************
        PROCEDURE DIVISION.
        000-MAIN.
-          CALL "TERMINAL-SIZE" USING WS-TERMINAL END-CALL.
+          PERFORM 001-GET-TERMINAL-SIZE.
       *   Needs to be 1 less than the actual terminal height to account
       *   for the input line.
           SUBTRACT 1 FROM WS-T-HEIGHT END-SUBTRACT.
@@ -53,6 +53,12 @@
              PERFORM 001-MOVE-LOGO
              CALL "CBL_GC_NANOSLEEP" USING 500000000 END-CALL
           END-PERFORM.
+
+       001-GET-TERMINAL-SIZE.
+      * TODO: add more ways to get terminal size.
+          MOVE 80 TO WS-T-WIDTH.
+          MOVE 24 TO WS-T-HEIGHT.
+
 
        001-LOAD-LOGO.
           MOVE "  /==========\   /============\" TO WS-LI-LINE(1).
