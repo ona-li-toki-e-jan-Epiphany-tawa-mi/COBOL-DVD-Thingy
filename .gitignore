@@ -1,5 +1,6 @@
+# Build artifacts.
 cobol-dvd-thingy
 *.o
 
-result*
+# Nix.
 flake.lock
