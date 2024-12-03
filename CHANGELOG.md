@@ -3,6 +3,8 @@
 ## Upcoming
 
 - Relicensed as GPLv3+ (originally MIT.)
+- Switched to using DISPLAY and ACCEPT for display.
+- Simplified build system.
 
 ## 0.1.1
 

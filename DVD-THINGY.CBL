@@ -1,5 +1,5 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. DVD-THING.
+       PROGRAM-ID. DVD-THINGY.
       ******************************************************************
       * This file is part of COBOL-DVD-Thingy.
       *

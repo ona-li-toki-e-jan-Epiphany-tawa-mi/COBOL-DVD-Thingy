@@ -14,10 +14,13 @@ Dependencies:
 There is a `flake.nix` you can use with `nix develop path:.` to generate a
 devlopment environment
 
-Then, run the following command in the project directory:
+Then, run one of the following commands in the project directory:
 
-```
+```sh
 ./build.sh
+
+# Build with optimizations
+EXTRA_COBFLAGS='-O3' ./build.sh
 ```
 
 The executable will be named `cobol-dvd-thingy`.
