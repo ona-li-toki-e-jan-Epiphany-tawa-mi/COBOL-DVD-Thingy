@@ -1,6 +1,6 @@
 # Changelog
 
-## Upcoming
+## 0.2.1
 
 - Relicensed as GPLv3+ (originally MIT.)
 - Switched to using DISPLAY and ACCEPT for display.

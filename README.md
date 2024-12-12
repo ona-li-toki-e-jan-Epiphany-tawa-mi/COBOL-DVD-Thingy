@@ -34,3 +34,10 @@ with the following attribute:
 ```nix
 nur.repos.ona-li-toki-e-jan-Epiphany-tawa-mi.cobol-dvd-thingy
 ```
+
+## Release notes
+
+- Relicensed as GPLv3+ (originally MIT.)
+- Switched to using DISPLAY and ACCEPT for display.
+- Simplified build system.
+- Added command line arguments `-h`, `-v`, and `-l`.

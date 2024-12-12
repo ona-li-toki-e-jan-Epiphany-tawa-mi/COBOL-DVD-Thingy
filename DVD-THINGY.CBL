@@ -101,7 +101,7 @@
                 PERFORM 005-GETOPT-HELP
                 STOP RUN RETURNING 0
              WHEN = 'v'
-                DISPLAY "cobol-dvd-thingy 0.1.1" END-DISPLAY
+                DISPLAY "cobol-dvd-thingy 0.2.1" END-DISPLAY
                 STOP RUN RETURNING 0
              WHEN = 'l'
                 PERFORM 005-GETOPT-LICENSE
