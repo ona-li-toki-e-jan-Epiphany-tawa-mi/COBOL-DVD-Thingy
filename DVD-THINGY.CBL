@@ -107,8 +107,7 @@
                 PERFORM 005-GETOPT-LICENSE
                 STOP RUN RETURNING 0
              END-EVALUATE
-          END-PERFORM
-          STOP RUN RETURNING 0.
+          END-PERFORM.
 
        005-GETOPT-HELP.
           DISPLAY "Usage:"                          END-DISPLAY.
