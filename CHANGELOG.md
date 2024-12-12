@@ -5,6 +5,7 @@
 - Relicensed as GPLv3+ (originally MIT.)
 - Switched to using DISPLAY and ACCEPT for display.
 - Simplified build system.
+- Added command line arguments `-h`, `-v`, and `-l`.
 
 ## 0.1.1
 
