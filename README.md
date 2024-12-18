@@ -11,8 +11,8 @@ Dependencies:
 
 - GnuCOBOL - [https://gnucobol.sourceforge.io](https://gnucobol.sourceforge.io)
 
-There is a `flake.nix` you can use with `nix develop path:.` to generate a
-devlopment environment
+There is a `flake.nix` you can use with `nix develop` to generate a devlopment
+environment
 
 Then, run one of the following commands in the project directory:
 

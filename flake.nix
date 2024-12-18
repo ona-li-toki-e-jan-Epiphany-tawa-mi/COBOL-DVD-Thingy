@@ -29,7 +29,7 @@
     in {
       devShells = forSystems ({ pkgs }: {
         default = with pkgs; mkShell {
-          nativeBuildInputs = [
+          packages = [
             gnu-cobol.bin
             gmp
           ];
