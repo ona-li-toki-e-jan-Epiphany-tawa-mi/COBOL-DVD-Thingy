@@ -116,11 +116,11 @@
           DISPLAY "A terminal program that runs a screensaver " &
                   "to the ones you see on DVD players."
           END-DISPLAY.
-          DISPLAY SPACE                                  END-DISPLAY.
-          DISPLAY "Options:"                             END-DISPLAY.
-          DISPLAY "  -h, --help       display this help" END-DISPLAY.
-          DISPLAY "  -v, --version    display version"   END-DISPLAY.
-          DISPLAY "  -l, --license    display license"   END-DISPLAY.
+          DISPLAY SPACE                                   END-DISPLAY.
+          DISPLAY "Options:"                              END-DISPLAY.
+          DISPLAY "  -h, --help       display this help." END-DISPLAY.
+          DISPLAY "  -v, --version    display version."   END-DISPLAY.
+          DISPLAY "  -l, --license    display license."   END-DISPLAY.
 
        005-GETOPT-LICENSE.
           DISPLAY "Copyright (C) 2024 " &
@@ -146,8 +146,7 @@
          END-DISPLAY.
          DISPLAY SPACE                END-DISPLAY.
          DISPLAY "Source (paltepuk):" END-DISPLAY.
-         DISPLAY "https://http://paltepuk.xyz/cgit/COBOL-DVD-Thingy.g" &
-                 "it/about/"
+         DISPLAY "https://paltepuk.xyz/cgit/COBOL-DVD-Thingy.git/about/"
          END-DISPLAY.
          DISPLAY "http://oytjumugnwsf4g72vemtamo72vfvgmp4lfsf6wmggcvb" &
                  "a3qmcsta.b32.i2p/cgit/COBOL-DVD-Thingy.git/about/"
@@ -155,7 +154,7 @@
          DISPLAY "http://4blcq4arxhbkc77tfrtmy4pptf55gjbhlj32rbfyskl6" &
                  "72v2plsmjcyd.onion/cgit/COBOL-DVD-Thingy.git/about/"
          END-DISPLAY.
-         DISPLAY SPACE                END-DISPLAY.
+         DISPLAY SPACE              END-DISPLAY.
          DISPLAY "Source (GitHub):" END-DISPLAY.
          DISPLAY "https://github.com/ona-li-toki-e-jan-Epiphany-tawa-" &
                  "mi/COBOL-DVD-Thingy/"
