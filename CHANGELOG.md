@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Fixed typo in output of `-l`.
+
 ## 0.2.1
 
 - Relicensed as GPLv3+ (originally MIT.)
