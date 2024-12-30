@@ -27,10 +27,5 @@ The executable will be named `cobol-dvd-thingy`.
 
 ## Installation
 
-You can install it with Nix from the NUR
-[https://github.com/nix-community/NUR](https://github.com/nix-community/NUR)
-with the following attribute:
-
-```nix
-nur.repos.ona-li-toki-e-jan-Epiphany-tawa-mi.cobol-dvd-thingy
-```
+You can install it with Nix from my personal package repository
+[https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/epitaphpkgs](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/epitaphpkgs).
