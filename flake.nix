@@ -21,19 +21,15 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
-    let inherit (nixpkgs.lib) genAttrs systems;
+    let
+      inherit (nixpkgs.lib) genAttrs systems;
 
-        forSystems = f: genAttrs systems.flakeExposed (system: f {
-          pkgs = import nixpkgs { inherit system; };
-        });
+      forSystems = f:
+        genAttrs systems.flakeExposed
+        (system: f { pkgs = import nixpkgs { inherit system; }; });
     in {
       devShells = forSystems ({ pkgs }: {
-        default = with pkgs; mkShell {
-          packages = [
-            gnu-cobol.bin
-            gmp
-          ];
-        };
+        default = with pkgs; mkShell { packages = [ gnu-cobol.bin gmp ]; };
       });
     };
 }
